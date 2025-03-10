@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
+import Login from './components/Login'
+import Signup from './components/Signup.jsx';
+import ForgotPassword from './components/ForgotPassword.jsx';
+import OTP from './components/OTP.jsx';
+import NewPassword from './components/NewPassword.jsx';
 import Navbar from './components/NavbarPage.jsx';
 import Homepage from './components/Home.jsx';
 import AnimeList from './components/Animepagelist.jsx';
@@ -21,25 +25,29 @@ import BlackClover from './Page/BlackClover.jsx';
 import WindBreaker from './Page/WindBreaker.jsx';
 import KaijuNo8 from './Page/KaijuNo8.jsx';
 import JuJUtsuKaisen from './Page/Jjk.jsx';
-import Loader from './components/Loader.jsx'; // Import Loader
+import Loader from './components/Loader.jsx';
 
 function App() {
-  const { isLoading } = useAuth0(); // Auth0 loading state
   const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setPageLoading(false), 2000); // Simulate page loading
+    setTimeout(() => setPageLoading(false), 2000);
   }, []);
 
-  if (isLoading || pageLoading) {
-    return <Loader />;  // Show loader when Auth0 or page is loading
+  if (pageLoading) {
+    return <Loader />;
   }
 
   return (
     <Router>
-      <Navbar /> {/* Navbar will handle login/logout */}
+      <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/otp" element={<OTP />} />
+        <Route path="/new-password" element={<NewPassword />} />
         <Route path="/animeList" element={<AnimeList />} />
         <Route path="/about" element={<About />} />
         <Route path="/event" element={<Event />} />
